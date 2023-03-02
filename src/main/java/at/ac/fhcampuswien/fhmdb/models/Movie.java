@@ -8,6 +8,7 @@ public class Movie {
     private String description;
     // TODO add more properties here
 
+    //test
     public Movie(String title, String description) {
         this.title = title;
         this.description = description;
