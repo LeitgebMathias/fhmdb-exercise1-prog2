@@ -20,6 +20,8 @@ public class FhmdbApplication extends Application {
     }
 
     public static void main(String[] args) {
+        //System.out.println(Movie.initializeMovies()); --> nur für Testzwecke
+
         launch();
     }
 }
