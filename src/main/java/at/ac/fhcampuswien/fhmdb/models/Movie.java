@@ -7,14 +7,12 @@ import java.util.List;
 public class Movie {
     private final String title;
     private final String description;
-    // TODO add more properties here
-
     private List<Genre> genres;
 
     public Movie(String title, String description, List<Genre> genres) {
         this.title = title;
         this.description = description;
-        this.genres =genres;
+        this.genres = genres;
     }
 
     public String getTitle() {
@@ -27,11 +25,11 @@ public class Movie {
 
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
-        // TODO add some dummy data here
+
         //Adding Dummy-Data - Filmklassiker (Auszüge davon) übernommen von:
         //https://www.moviepilot.de/filme/beste/schlagwort-klassiker abgerufen am 04.03.2023 um 22:15 Uhr
 
-        //Guys: feel free to add /lmk if you want more movies :)
+        //Guys: feel free to add / lmk if you want more movies :)
         //Genres sind free-style da nicht immer 100% passend mit Angabe.
 
         Movie pate = new Movie("Der Pate", "Mafiafilm von Francis Ford Coppola mit Marlon Brando und Al Pacino.", Arrays.asList(Genre.CRIME, Genre.ACTION));

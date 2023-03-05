@@ -14,36 +14,29 @@ public class MovieService {
 
     //Hilfestellung zu folgenden Methoden: https://mkyong.com/java8/java-8-how-to-sort-list-with-stream-sorted/
     //abgerufen am 05.03.2023 um 00:53 Uhr.
-    public static void sortMovieListAscending(List<Movie> movies) {
-        List<Movie> sortedListAscending = new ArrayList<>(Movie.initializeMovies());
+    public static List<Movie> sortMovieListAscending(List<Movie> movies) {
+        List<Movie> movieArrayList = new ArrayList<>(Movie.initializeMovies());
 
-        sortedListAscending.stream()
+        List<Movie> sortedListAscending = movieArrayList.stream()
                 .sorted(Comparator.comparing(Movie::getTitle))
                 .collect(Collectors.toList());
 
-        sortedListAscending.forEach(System.out::println);
-
-        //sortedListAscending.stream().sorted().collect(Collectors.toList());
-
-        //sortedListAscending.stream().sorted(Comparator.comparing(Movie::getGenre));
-
-        //sortedListAscending.forEach(System.out::println);
-
-        //List<Movie> sortedListAscending = movies.stream()
-        //.sorted(Comparator.comparing(Movie::getTitle))
-        //.collect(Collectors.toList());
-
-        //sortedListAscending.forEach(System.out::println);
+        for (Movie movie : sortedListAscending) {
+            System.out.println(movie.getTitle());
     }
+    return sortedListAscending;
+}
 
-    public static void sortMovieListDecending(List<Movie> movies) {
-        List<Movie> sortedListDecending = new ArrayList<>(Movie.initializeMovies());
+    public static List<Movie> sortMovieListDecending(List<Movie> movies) {
+        List<Movie> movieArrayList = new ArrayList<>(Movie.initializeMovies());
 
-        sortedListDecending.stream()
-                .sorted(Comparator.comparing(Movie::getTitle)
-                        .reversed())
+        List<Movie> sortedListDecending = movieArrayList.stream()
+                .sorted(Comparator.comparing(Movie::getTitle).reversed())
                 .collect(Collectors.toList());
 
-        sortedListDecending.forEach(System.out::println);
+        for (Movie movie : sortedListDecending) {
+            System.out.println(movie.getTitle());
+        }
+        return sortedListDecending;
     }
 }

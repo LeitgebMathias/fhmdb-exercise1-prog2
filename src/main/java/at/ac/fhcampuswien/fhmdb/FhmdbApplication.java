@@ -20,8 +20,15 @@ public class FhmdbApplication extends Application {
     }
 
     public static void main(String[] args) {
-        //System.out.println(Movie.initializeMovies()); --> nur für Testzwecke
+        //System.out.println(Movie.initializeMovies());
 
         launch();
+
+        //Folgender Code kann zum Testen der MovieService Class verwendet werden:
+        /*
+        MovieService.sortMovieListDecending(Movie.initializeMovies());
+        System.out.println();
+        MovieService.sortMovieListAscending(Movie.initializeMovies());
+        */
     }
 }

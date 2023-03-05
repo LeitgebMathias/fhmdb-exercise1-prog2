@@ -5,7 +5,7 @@ package at.ac.fhcampuswien.fhmdb.models;
 public class Genre {
     //Genres haben genau einen String: name.
     private String name;
-//test
+
     private Genre(String name) {
         this.name = name;
     }
@@ -29,4 +29,9 @@ public class Genre {
     public static final Genre THRILLER = new Genre("THRILLER");
     public static final Genre WAR = new Genre("WAR");
     public static final Genre WESTERN = new Genre("WESTERN");
+
+
+    public String getName() {
+        return name;
+    }
 }
