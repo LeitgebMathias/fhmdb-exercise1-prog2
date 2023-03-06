@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.fhmdb;
 
 import at.ac.fhcampuswien.fhmdb.models.Movie;
+import at.ac.fhcampuswien.fhmdb.service.MovieService;
 import at.ac.fhcampuswien.fhmdb.ui.MovieCell;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -33,6 +34,10 @@ public class HomeController implements Initializable {
 
     public List<Movie> allMovies = Movie.initializeMovies();
 
+    // Zusätzliche Liste, in der alle Filme enthalten sind, die allen aktuellen Filterkriterien entsprechen.
+    // Wenn keine Filter gesetzt sind, ist die Liste gleich "allMovies".
+    public List<Movie> filteredMovies = allMovies;
+
     private final ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
 
     @Override
@@ -52,11 +57,21 @@ public class HomeController implements Initializable {
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
             if(sortBtn.getText().equals("Sort (asc)")) {
-                // TODO sort observableMovies ascending
+
+                observableMovies.clear();
+                filteredMovies = MovieService.sortMovieListAscending(filteredMovies);
+                observableMovies.addAll(filteredMovies);
+
                 sortBtn.setText("Sort (desc)");
+
             } else {
-                // TODO sort observableMovies descending
+
+                observableMovies.clear();
+                filteredMovies = MovieService.sortMovieListDescending(filteredMovies);
+                observableMovies.addAll(filteredMovies);
+
                 sortBtn.setText("Sort (asc)");
+
             }
         });
 
