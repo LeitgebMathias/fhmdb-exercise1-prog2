@@ -28,7 +28,7 @@ class MovieServiceTest {
 
     //Test-case prüft, ob die Liste nach Anwenden der Funktion sortMovieListDescending absteigend (nach Titel) sortiert ist:
     @Test
-    void sortMovieListAscending_is_true_if_last_title_is_zwei_glorreiche_halunken() {
+    void sortMovieListDescending_is_true_if_last_title_is_zwei_glorreiche_halunken() {
         // given
         List<Movie> listOfMovies;
 
