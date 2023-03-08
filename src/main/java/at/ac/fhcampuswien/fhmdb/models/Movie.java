@@ -7,7 +7,7 @@ import java.util.List;
 public class Movie {
     private final String title;
     private final String description;
-    private List<Genre> genres;
+    private final List<Genre> genres;
 
     public Movie(String title, String description, List<Genre> genres) {
         this.title = title;
@@ -21,6 +21,9 @@ public class Movie {
 
     public String getDescription() {
         return description;
+    }
+    public List<Genre> getGenres() {
+        return genres;
     }
 
     public static List<Movie> initializeMovies(){
