@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class MovieServiceTest {
@@ -34,5 +36,32 @@ class MovieServiceTest {
 
         // then
         assertSame("Zwei glorreiche Halunken", listOfMovies.get(0).getTitle());
+    }
+
+    //Hilfestellung zum Testen von Funktionen, wenn diese "null" zurückgeben:
+    //https://stackoverflow.com/questions/49514479/how-to-test-in-j-unit-when-a-method-returns-null
+    //abgerufen am 10.03.2023 um 23:10 Uhr
+    @Test
+    void sortMovieListAscending_returns_null_if_the_passed_list_is_empty() {
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
+
+        // when
+        listOfMovies = MovieService.sortMovieListAscending(listOfMovies);
+
+        // then
+        Assert.assertNull(listOfMovies);
+    }
+
+    @Test
+    void sortMovieListDescending_returns_null_if_the_passed_list_is_empty() {
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
+
+        // when
+        listOfMovies = MovieService.sortMovieListDescending(listOfMovies);
+
+        // then
+        Assert.assertNull(listOfMovies);
     }
 }

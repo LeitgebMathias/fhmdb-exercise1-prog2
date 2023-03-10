@@ -12,19 +12,23 @@ public class MovieService {
     //abgerufen am 05.03.2023 um 00:53 Uhr.
     public static List<Movie> sortMovieListAscending(List<Movie> movies) {
 
-        List<Movie> sortedListAscending = movies.stream()
-            .sorted(Comparator.comparing(Movie::getTitle))
-            .collect(Collectors.toList());
-
-        return sortedListAscending;
+        if (movies.isEmpty()) {
+            return null;
+        } else {
+            return movies.stream()
+                    .sorted(Comparator.comparing(Movie::getTitle))
+                    .collect(Collectors.toList());
+        }
     }
 
     public static List<Movie> sortMovieListDescending(List<Movie> movies) {
 
-        List<Movie> sortedListDescending = movies.stream()
-                .sorted(Comparator.comparing(Movie::getTitle).reversed())
-                .collect(Collectors.toList());
-
-        return sortedListDescending;
+        if (movies.isEmpty()) {
+            return null;
+        } else {
+            return movies.stream()
+                    .sorted(Comparator.comparing(Movie::getTitle).reversed())
+                    .collect(Collectors.toList());
+        }
     }
 }
