@@ -14,8 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class HomeController implements Initializable {
     @FXML
@@ -37,7 +36,7 @@ public class HomeController implements Initializable {
 
     // Zusätzliche Liste, in der alle Filme enthalten sind, die allen aktuellen Filterkriterien entsprechen.
     // Wenn keine Filter gesetzt sind, ist die Liste gleich "allMovies".
-    public List<Movie> filteredMovies = allMovies;
+    public List<Movie> filteredMovies = new ArrayList<> (allMovies);
 
     private final ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
 
@@ -49,7 +48,6 @@ public class HomeController implements Initializable {
         movieListView.setItems(observableMovies);   // set data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
 
-        // TODO add genre filter items with genreComboBox.getItems().addAll(...)
         genreComboBox.setPromptText("Filter by Genre");
         genreComboBox.getItems().addAll(Genre.values());
 
@@ -73,10 +71,25 @@ public class HomeController implements Initializable {
                 observableMovies.addAll(filteredMovies);
 
                 sortBtn.setText("Sort (asc)");
-
             }
         });
 
+        // TODO implementation for Genre Filter
+        searchBtn.setOnAction(actionEvent -> {
+            if (searchBtn.getText().equals("Filter")) {
+                observableMovies.clear();
+                filteredMovies = MovieService.searchMovieList(filteredMovies, searchField.getText().toLowerCase());
+                observableMovies.addAll(filteredMovies);
 
+                searchBtn.setText("Reset");
+            } else {
+                searchField.setText("");
+                genreComboBox.setValue(null);
+                observableMovies.clear();
+                filteredMovies = new ArrayList<> (allMovies);
+                observableMovies.addAll(allMovies);
+                searchBtn.setText("Filter");
+            }
+        });
     }
 }

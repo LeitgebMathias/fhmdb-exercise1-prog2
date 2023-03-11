@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.fhmdb.service;
 
+import at.ac.fhcampuswien.fhmdb.models.Genre;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 
 import java.util.Comparator;
@@ -31,4 +32,20 @@ public class MovieService {
                     .collect(Collectors.toList());
         }
     }
+
+
+    public static List<Movie> searchMovieList(List<Movie> movies, String searchText) {
+        if (movies.isEmpty()) {
+            return null;
+        } else {
+            return movies.stream()
+                    .filter(m -> m.getTitle().toLowerCase().contains(searchText)
+                            || m.getDescription().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
+        }
+    }
+
+    // TODO functionality for Genre Filter
 }
+
+
