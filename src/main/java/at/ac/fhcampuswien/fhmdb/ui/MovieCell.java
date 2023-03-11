@@ -21,6 +21,11 @@ public class MovieCell extends ListCell<Movie> {
 
         if (empty || movie == null) {
             setText(null);
+            // Without that command, the view would "not be updated", even if the movies in the observable
+            // list get reduced.
+            // Since "updatedItem" get's called with every movie as a parameter, without that command, the
+            // movies that are not supposed to be shown anymore would still be shown, even when are not in
+            // the observable list anymore.
             setGraphic(null);
         } else {
             this.getStyleClass().add("movie-cell");
