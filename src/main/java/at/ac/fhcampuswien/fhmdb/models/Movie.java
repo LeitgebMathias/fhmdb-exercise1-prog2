@@ -22,18 +22,16 @@ public class Movie {
     public String getDescription() {
         return description;
     }
+
     public List<Genre> getGenres() {
         return genres;
     }
 
-    public static List<Movie> initializeMovies(){
+    public static List<Movie> initializeMovies() {
         List<Movie> movies = new ArrayList<>();
 
         //Adding Dummy-Data - Filmklassiker (Auszüge davon) übernommen von:
         //https://www.moviepilot.de/filme/beste/schlagwort-klassiker abgerufen am 04.03.2023 um 22:15 Uhr
-
-        //Guys: feel free to add / lmk if you want more movies :)
-        //Genres sind free-style da nicht immer 100% passend mit Angabe.
 
         Movie pate = new Movie("Der Pate", "Mafiafilm von Francis Ford Coppola mit Marlon Brando und Al Pacino.", Arrays.asList(Genre.CRIME, Genre.ACTION));
         movies.add(pate);
