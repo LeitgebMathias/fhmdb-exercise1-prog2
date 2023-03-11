@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ class MovieServiceTest {
         listOfMovies = MovieService.sortMovieListAscending(listOfMovies);
 
         // then
-        Assert.assertNull(listOfMovies);
+        assertNull(listOfMovies);
     }
 
     @Test
@@ -62,6 +62,6 @@ class MovieServiceTest {
         listOfMovies = MovieService.sortMovieListDescending(listOfMovies);
 
         // then
-        Assert.assertNull(listOfMovies);
+        assertNull(listOfMovies);
     }
 }
