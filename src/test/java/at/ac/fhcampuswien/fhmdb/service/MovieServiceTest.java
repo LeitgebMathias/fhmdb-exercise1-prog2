@@ -2,17 +2,20 @@ package at.ac.fhcampuswien.fhmdb.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import at.ac.fhcampuswien.fhmdb.models.Genre;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class MovieServiceTest {
     //Test-case prüft, ob die Liste nach Anwenden der Funktion sortMovieListAscending aufsteigend (nachTitel) sortiert ist:
     @Test
-    void sortMovieListAscending_is_true_if_first_title_is_der_herr_der_ringe_die_rueckkehr_des_koenigs() {
+    void sortMovieListAscending_is_true_if_first_title_is_ant_man() {
         // given
         List<Movie> listOfMovies;
 
@@ -21,7 +24,7 @@ class MovieServiceTest {
         listOfMovies = MovieService.sortMovieListAscending(listOfMovies);
 
         // then
-        assertSame("Der Herr der Ringe: Die Rückkehr des Königs", listOfMovies.get(0).getTitle());
+        assertSame("Ant-Man", listOfMovies.get(0).getTitle());
     }
 
     //Test-case prüft, ob die Liste nach Anwenden der Funktion sortMovieListDescending absteigend (nach Titel) sortiert ist:
@@ -64,4 +67,9 @@ class MovieServiceTest {
         // then
         Assert.assertNull(listOfMovies);
     }
+
+    // TODO add Test for Search Term Title *and* Description
+
+    // TODO add Test for Genre Filter
+
 }
