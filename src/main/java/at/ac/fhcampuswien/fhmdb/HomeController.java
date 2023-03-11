@@ -14,8 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class HomeController implements Initializable {
     @FXML
@@ -37,7 +36,7 @@ public class HomeController implements Initializable {
 
     // Zusätzliche Liste, in der alle Filme enthalten sind, die allen aktuellen Filterkriterien entsprechen.
     // Wenn keine Filter gesetzt sind, ist die Liste gleich "allMovies".
-    public List<Movie> filteredMovies = allMovies;
+    public List<Movie> filteredMovies = new ArrayList<> (allMovies);
 
     private final ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
 
