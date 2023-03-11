@@ -49,7 +49,6 @@ public class HomeController implements Initializable {
         movieListView.setItems(observableMovies);   // set data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
 
-        // TODO add genre filter items with genreComboBox.getItems().addAll(...)
         genreComboBox.setPromptText("Filter by Genre");
         genreComboBox.getItems().addAll(Genre.values());
 
@@ -73,10 +72,25 @@ public class HomeController implements Initializable {
                 observableMovies.addAll(filteredMovies);
 
                 sortBtn.setText("Sort (asc)");
-
             }
         });
 
+        // TODO implementation for Genre Filter
+        searchBtn.setOnAction(actionEvent -> {
+            if (searchBtn.getText().equals("Filter")) {
+                observableMovies.clear();
+                filteredMovies = MovieService.searchMovieList(filteredMovies, searchField.getText().toLowerCase());
+                observableMovies.addAll(filteredMovies);
 
+                searchBtn.setText("Reset");
+            } else {
+                searchField.setText("");
+                genreComboBox.setValue(null);
+                observableMovies.clear();
+                filteredMovies = new ArrayList<> (allMovies);
+                observableMovies.addAll(allMovies);
+                searchBtn.setText("Filter");
+            }
+        });
     }
 }
