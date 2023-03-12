@@ -32,10 +32,14 @@ public class HomeController implements Initializable {
     @FXML
     public JFXButton sortBtn;
 
+    boolean filterHasChangedSinceLastSearch = true;
+    boolean listIsCurrentlyFiltered = false;
+
     public List<Movie> allMovies = Movie.initializeMovies();
 
     // Zusätzliche Liste, in der alle Filme enthalten sind, die allen aktuellen Filterkriterien entsprechen.
     // Wenn keine Filter gesetzt sind, ist die Liste gleich "allMovies".
+    // Hier wird explizit eine zusätzliche Liste erstellt
     public List<Movie> filteredMovies = new ArrayList<> (allMovies);
 
     private final ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
@@ -51,50 +55,98 @@ public class HomeController implements Initializable {
         genreComboBox.setPromptText("Filter by Genre");
         genreComboBox.getItems().addAll(Genre.values());
 
-        // TODO add event handlers to buttons and call the regarding methods
-        // either set event handlers in the fxml file (onAction) or add them here
+        // Ein Listener, welcher reagiert, wenn sich der Text im Text-field ändert.
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Diese Abfrage ist wichtig, da es nicht gewünscht ist, dass das ausgeführt wird,
+            // wenn das Text-field gerade geleert wurde.
+            if(!newValue.equals("")) {
+                filterHasChangedSinceLastSearch = true;
+                searchBtn.setText("Filter");
+            }
+        });
 
-        // Sort button example:
+        // Ein Listener, welcher reagiert, wenn sich die Auswahl in der ComboBox ändert.
+        genreComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            // Diese Abfrage ist wichtig, da es nicht gewünscht ist, dass das ausgeführt wird,
+            // wenn der Filter gerade geleert wurde.
+            if (genreComboBox.getValue() != null) {
+                filterHasChangedSinceLastSearch = true;
+                searchBtn.setText("Filter");
+            }
+        });
+
+        // Passiert, sobald der Sort Button gedrückt wird.
         sortBtn.setOnAction(actionEvent -> {
-            if(sortBtn.getText().equals("Sort (asc)")) {
+            if (!filteredMovies.isEmpty()) {
+                if (sortBtn.getText().equals("Sort (asc)")) {
 
-                observableMovies.clear();
-                filteredMovies = MovieService.sortMovieListAscending(filteredMovies);
-                observableMovies.addAll(filteredMovies);
+                    observableMovies.clear();
+                    filteredMovies = MovieService.sortMovieListAscending(filteredMovies);
+                    observableMovies.addAll(filteredMovies);
 
-                sortBtn.setText("Sort (desc)");
+                    sortBtn.setText("Sort (desc)");
 
-            } else {
+                } else {
 
-                observableMovies.clear();
-                filteredMovies = MovieService.sortMovieListDescending(filteredMovies);
-                observableMovies.addAll(filteredMovies);
+                    observableMovies.clear();
+                    filteredMovies = MovieService.sortMovieListDescending(filteredMovies);
+                    observableMovies.addAll(filteredMovies);
 
-                sortBtn.setText("Sort (asc)");
+                    sortBtn.setText("Sort (asc)");
+                }
             }
         });
 
         searchBtn.setOnAction(actionEvent -> {
-            if (searchBtn.getText().equals("Filter")) {
-                observableMovies.clear();
+            // Wenn keine Filterkriterien eingetragen sind, wird das Filtern übersprungen.
+            if (!searchField.getText().equals("") || genreComboBox.getValue() != null){
+                // Wenn die Filterkriterien seit der letzten Suche geändert wurden, dann soll neu gesucht werden.
+                if (filterHasChangedSinceLastSearch) {
+                    observableMovies.clear();
+                    filteredMovies = new ArrayList<>(allMovies);
 
-                if (!searchField.getText().equals("")) {
-                    filteredMovies = MovieService.searchMovieList(filteredMovies, searchField.getText());
-                }
-                if (genreComboBox.getValue() != null) {
-                    filteredMovies = MovieService.filterMovieList(filteredMovies, (Genre) genreComboBox.getValue());
-                }
-                observableMovies.addAll(filteredMovies);
+                    // This is filtering
+                    if (!searchField.getText().equals("")) {
+                        filteredMovies = MovieService.searchMovieList(filteredMovies, searchField.getText());
+                    }
+                    if (!filteredMovies.isEmpty()) {
+                        if (genreComboBox.getValue() != null) {
+                            filteredMovies = MovieService.filterMovieList(filteredMovies, (Genre) genreComboBox.getValue());
+                        }
+                    }
+                    observableMovies.addAll(filteredMovies);
 
-                searchBtn.setText("Reset");
+                    searchBtn.setText("Reset");
+                    filterHasChangedSinceLastSearch = false;
+                    listIsCurrentlyFiltered = true;
+
+                } else {
+                    // Wenn die Filterkriterien seit der letzten Suche NICHT geändert wurden,
+                    // dann soll die Suche zurückgesetzt werden.
+                    if (listIsCurrentlyFiltered){
+                        searchField.setText("");
+                        genreComboBox.setValue(null);
+                        observableMovies.clear();
+                        filteredMovies = new ArrayList<> (allMovies);
+                        observableMovies.addAll(allMovies);
+                        searchBtn.setText("Filter");
+                        listIsCurrentlyFiltered = false;
+                    }
+                }
             } else {
-                searchField.setText("");
-                genreComboBox.setValue(null);
-                observableMovies.clear();
-                filteredMovies = new ArrayList<> (allMovies);
-                observableMovies.addAll(allMovies);
-                searchBtn.setText("Filter");
+                // Wenn keine Filterkriterien eingetragen sind, wird die Liste nur neu geladen,
+                // wenn sie gerade gefiltert ist.
+                // Wenn die Liste gerade sowieso ungefiltert ist, dann braucht sie nicht neu geladen werden.
+                if (listIsCurrentlyFiltered) {
+                    observableMovies.clear();
+                    filteredMovies = new ArrayList<>(allMovies);
+                    observableMovies.addAll(allMovies);
+                    searchBtn.setText("Filter");
+                    listIsCurrentlyFiltered = false;
+                }
             }
+
+
         });
     }
 }
