@@ -56,8 +56,8 @@ public class Movie {
 
         // added dummy data so all genres are used at least once
         // https://www.moviepilot.de/filme/beste abgerufen am 11.3. um 12:02
-        // https://de.wikipedia.org/wiki/Ant-Man_(Film) abgerufen am 11.3. um 12:51
-        // https://de.wikipedia.org/wiki/Guardians_of_the_Galaxy abgerufen am 11.3. um 12:52
+        // https://de.wikipedia.org/wiki/Ant-Man_(Film) abgerufen am 11.3. um 12:51 <3
+        // https://de.wikipedia.org/wiki/Guardians_of_the_Galaxy abgerufen am 11.3. um 12:52 <3
 
         Movie chihiroZauberland = new Movie("Chihiros Reise ins Zauberland", "Anime von Hayao Miyazaki mit Lauren Holly und David Ogden Stiers. ", Arrays.asList(Genre.ANIMATION, Genre.FAMILY, Genre.FANTASY));
         movies.add(chihiroZauberland);
