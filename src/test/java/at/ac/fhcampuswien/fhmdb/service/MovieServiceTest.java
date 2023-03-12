@@ -68,8 +68,76 @@ class MovieServiceTest {
         assertNull(listOfMovies);
     }
 
-    // TODO add Test for Search Term Title *and* Description
+    @Test
+    void searchMovieList_returns_movies_containing_searchterm_in_title_or_description() {
+        // search term "meg" was chosen because it is included in a title of one movie and a description of another movie
 
-    // TODO add Test for Genre Filter
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
 
+        // when
+        listOfMovies = Movie.initializeMovies();
+        listOfMovies = MovieService.searchMovieList(listOfMovies, "meg");
+
+        // then
+        // description contains "meg"
+        assertSame("Harry und Sally", listOfMovies.get(0).getTitle());
+        // title contains "meg"
+        assertSame("Megamind", listOfMovies.get(1).getTitle());
+    }
+
+    @Test
+    void searchMovieList_searched_list_can_be_sorted() {
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
+
+        // when
+        listOfMovies = Movie.initializeMovies();
+        listOfMovies = MovieService.searchMovieList(listOfMovies, "meg");
+        listOfMovies = MovieService.sortMovieListDescending(listOfMovies);
+
+        // then
+        assertSame("Megamind", listOfMovies.get(0).getTitle());
+        assertSame("Harry und Sally", listOfMovies.get(1).getTitle());
+    }
+
+    @Test
+    void searchMovieList_search_is_not_case_sensitive() {
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
+
+        // when
+        listOfMovies = Movie.initializeMovies();
+        listOfMovies = MovieService.searchMovieList(listOfMovies, "sieBEN");
+
+        // then
+        assertSame("Sieben", listOfMovies.get(0).getTitle());
+    }
+
+    @Test
+    void filterMovieList_only_shows_films_of_chosen_genre_history() {
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
+
+        // when
+        listOfMovies = Movie.initializeMovies();
+        listOfMovies = MovieService.filterMovieList(listOfMovies, Genre.HISTORY);
+
+        // then
+        assertSame("Im Westen nichts Neues", listOfMovies.get(0).getTitle());
+    }
+
+    @Test
+    void filterMovieList_and_searchMovieList_can_be_used_at_the_same_time() {
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
+
+        // when
+        listOfMovies = Movie.initializeMovies();
+        listOfMovies = MovieService.searchMovieList(listOfMovies, "rocky");
+        listOfMovies = MovieService.filterMovieList(listOfMovies, Genre.SPORT);
+
+        // then
+        assertSame("Rocky", listOfMovies.get(0).getTitle());
+    }
 }

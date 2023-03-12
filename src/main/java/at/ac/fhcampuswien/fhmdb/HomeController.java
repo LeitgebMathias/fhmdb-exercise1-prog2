@@ -74,11 +74,16 @@ public class HomeController implements Initializable {
             }
         });
 
-        // TODO implementation for Genre Filter
         searchBtn.setOnAction(actionEvent -> {
             if (searchBtn.getText().equals("Filter")) {
                 observableMovies.clear();
-                filteredMovies = MovieService.searchMovieList(filteredMovies, searchField.getText().toLowerCase());
+
+                if (!searchField.getText().equals("")) {
+                    filteredMovies = MovieService.searchMovieList(filteredMovies, searchField.getText());
+                }
+                if (genreComboBox.getValue() != null) {
+                    filteredMovies = MovieService.filterMovieList(filteredMovies, (Genre) genreComboBox.getValue());
+                }
                 observableMovies.addAll(filteredMovies);
 
                 searchBtn.setText("Reset");

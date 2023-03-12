@@ -39,13 +39,20 @@ public class MovieService {
             return null;
         } else {
             return movies.stream()
-                    .filter(m -> m.getTitle().toLowerCase().contains(searchText)
-                            || m.getDescription().toLowerCase().contains(searchText))
+                    .filter(m -> m.getTitle().toLowerCase().contains(searchText.toLowerCase()) || m.getDescription().toLowerCase().contains(searchText.toLowerCase()))
                     .collect(Collectors.toList());
         }
     }
 
-    // TODO functionality for Genre Filter
+    public static List<Movie> filterMovieList(List<Movie> movies, Genre genre) {
+        if (movies.isEmpty()) {
+            return null;
+        } else {
+            return movies.stream()
+                    .filter(m -> m.getGenres().contains(genre))
+                    .collect(Collectors.toList());
+        }
+    }
 }
 
 
