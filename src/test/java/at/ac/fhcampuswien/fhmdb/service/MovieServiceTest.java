@@ -114,8 +114,6 @@ class MovieServiceTest {
         assertSame("Sieben", listOfMovies.get(0).getTitle());
     }
 
-    // TODO Lilli
-
     @Test
     void filterMovieList_only_shows_films_of_chosen_genre_history() {
         // given
