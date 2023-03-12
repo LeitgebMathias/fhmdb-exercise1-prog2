@@ -87,7 +87,7 @@ public class Movie {
         movies.add(guardians);
         Movie westen = new Movie("Im Westen nichts Neues", "Anti-Kriegsfilm von Lewis Milestone mit Louis Wolheim und Lew Ayres. ", Arrays.asList(Genre.WAR, Genre.HISTORY));
         movies.add(westen);
-        Movie megamind = new Movie("Megamind", "Megamind ist ein CGI-Animationsfilm von DreamWorks Animation.", Arrays.asList(Genre.ANIMATION, Genre.FAMILY));
+        Movie megamind = new Movie("Megamind", "CGI-Animationsfilm von DreamWorks Animation.", Arrays.asList(Genre.ANIMATION, Genre.FAMILY));
         movies.add(megamind);
 
         return movies;
