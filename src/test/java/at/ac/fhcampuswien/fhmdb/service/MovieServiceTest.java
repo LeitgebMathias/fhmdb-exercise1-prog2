@@ -164,10 +164,10 @@ class MovieServiceTest {
     }
 
     @Test
-    void filterMovieList_only_shows_films_of_chosen_genre_science_fiction() {
+    void filterMovieList_only_shows_films_of_chosen_genre_war() {
         // given
         List<Movie> listOfMovies;
-        boolean eachFilteredMovieIncludesGenreSciFi = true;
+        boolean eachFilteredMovieIncludesGenreWar = true;
 
         // when
         listOfMovies = Movie.initializeMovies();
@@ -176,9 +176,9 @@ class MovieServiceTest {
         // then
         for (Movie movie : listOfMovies) {
             if(!movie.getGenres().contains(Genre.WAR))
-                eachFilteredMovieIncludesGenreSciFi = false;
+                eachFilteredMovieIncludesGenreWar = false;
         }
-        assertTrue(eachFilteredMovieIncludesGenreSciFi);
+        assertTrue(eachFilteredMovieIncludesGenreWar);
     }
 
     @Test
@@ -215,4 +215,50 @@ class MovieServiceTest {
         }
         assertTrue(eachFilteredMovieMeetsFilterCriteria);
     }
+
+    @Test
+    void filterMovieList_and_searchMovieList_can_be_used_at_the_same_time_dummy_data_independent () {
+        // Test independent from Dummy Data
+
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
+        boolean filmContainsGenreAndSearchTerm = true;
+
+        // when
+        listOfMovies = Movie.initializeMovies();
+        listOfMovies = MovieService.searchMovieList(listOfMovies, "rocky");
+        listOfMovies = MovieService.filterMovieList(listOfMovies, Genre.SPORT);
+
+        // then
+        for (Movie movie : listOfMovies) {
+            if (!movie.getGenres().contains(Genre.SPORT))
+                filmContainsGenreAndSearchTerm = false;
+            if (!movie.getTitle().contains("Rocky") && !movie.getDescription().contains("Rocky"))
+                filmContainsGenreAndSearchTerm = false;
+        }
+
+        assertTrue(filmContainsGenreAndSearchTerm);
+    }
+
+    @Test
+    void filterMovieList_only_shows_films_of_chosen_genre_history_dummy_data_independent () {
+        // Test independent from Dummy Data
+
+        // given
+        List<Movie> listOfMovies = new ArrayList<>();
+        boolean filmContainsGenre = true;
+
+        // when
+        listOfMovies = Movie.initializeMovies();
+        listOfMovies = MovieService.filterMovieList(listOfMovies, Genre.HISTORY);
+
+        // then
+        for (Movie movie : listOfMovies) {
+            if (!movie.getGenres().contains(Genre.HISTORY))
+                filmContainsGenre = false;
+        }
+
+        assertTrue(filmContainsGenre);
+    }
+
 }
