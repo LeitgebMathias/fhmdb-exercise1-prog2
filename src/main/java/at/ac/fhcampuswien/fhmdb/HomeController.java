@@ -57,16 +57,12 @@ public class HomeController implements Initializable {
 
         // Ein Listener, welcher reagiert, wenn sich der Text im Text-field ändert.
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Diese Abfrage ist wichtig, da es nicht gewünscht ist, dass das ausgeführt wird,
-            // wenn das Text-field gerade geleert wurde.
                 filterHasChangedSinceLastSearch = true;
                 searchBtn.setText("Filter");
         });
 
         // Ein Listener, welcher reagiert, wenn sich die Auswahl in der ComboBox ändert.
         genreComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            // Diese Abfrage ist wichtig, da es nicht gewünscht ist, dass das ausgeführt wird,
-            // wenn der Filter gerade geleert wurde.
                 filterHasChangedSinceLastSearch = true;
                 searchBtn.setText("Filter");
         });
