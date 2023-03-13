@@ -221,7 +221,7 @@ class MovieServiceTest {
         // Test independent from Dummy Data
 
         // given
-        List<Movie> listOfMovies = new ArrayList<>();
+        List<Movie> listOfMovies;
         boolean filmContainsGenreAndSearchTerm = true;
 
         // when
@@ -245,7 +245,7 @@ class MovieServiceTest {
         // Test independent from Dummy Data
 
         // given
-        List<Movie> listOfMovies = new ArrayList<>();
+        List<Movie> listOfMovies;
         boolean filmContainsGenre = true;
 
         // when
